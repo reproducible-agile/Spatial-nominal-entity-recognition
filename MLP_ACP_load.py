@@ -47,69 +47,6 @@ from random import randint
 import treetaggerwrapper
 
 
-# Fichier_exemple = "corpus_wikipedia/corpus_negatifs_annotees/corpus_wiki_negatifs_annote.csv"
-
-# ficier_negatifs_netoyer = open("corpus_wikipedia/corpus_negatifs_annotees/fichier_negatifs_wiki_netoyer.txt","w")
-
-# tagger = treetaggerwrapper.TreeTagger(TAGLANG='fr', TAGINENC='utf-8',TAGOUTENC='utf-8')	
-# F = open(Fichier_exemple, 'r')
-# reader_teste = csv.reader(F, delimiter=';', quoting=csv.QUOTE_NONE, )
-# entree = ()
-# Liste_entree_negatifs = []
-
-# for Y,mot_lexique, X in reader_teste:
-# 	entree = X, Y, mot_lexique
-# 	Liste_entree_negatifs.append (entree)
-
-# count = 0
-# for e in Liste_entree_negatifs:
-# 	if e[1] == "1" or e[1] == "0" or e[1] == "9":
-# 		#############Teste solution avec Split 
-	
-# 		#L_phrase = e[0].split(' ')
-
-# 		###############teste solution avec treetager tokenisation############
-		
-# 		sentence  = e[0]
-# 		sentence = sentence.replace(';','')
-# 		sentence = sentence.replace("'", chr(39))
-# 		sentence = sentence.replace('\'',chr(39))
-# 		sentence = sentence.replace("d\'"," deeee ")
-# 		sentence = sentence.replace("l\'", " leeee ")
-
-# 		sentence_tagger = tagger.tag_text(sentence)
-# 		tag = treetaggerwrapper.make_tags(sentence_tagger)
-
-
-
-# 		L_phrase = [] 
-# 		for t in tag:
-# 			L_phrase.append(t[0])
-			
-# 		print(L_phrase)
-# 		for e in L_phrase:
-# 			if e == "leeee":
-# 				i = L_phrase.index(e)
-# 				L_phrase[i] = "l\'"
-# 			if e == 'deeee':
-# 				i = L_phrase.index(e)
-# 				L_phrase[i] = "d\'"
-		
-# 		print(L_phrase)
-# 		fichier_negatifs_wiki_netoyer.write(L_phrase)
-
-# 		print("####################################")
-
-# 		crochetouvrant = e[0].find('[')
-# 		crochetfermant = e[0].find(']')
-# 		phrase = e[0]
-
-
-
-		
-
-
-
 def generation_ngram_newVersion(n, f_dataset):
 	
 
@@ -126,11 +63,7 @@ def generation_ngram_newVersion(n, f_dataset):
 	entree = ()
 	Liste_entree_negatifs = []
 
-	#test et validation
-	#for idf, Y, X, mp,src, alea in reader_teste:
-
-	#emergence 93
-	for idf, Y, X, mp, alea in reader_teste:
+	for idf, Y, X, mp,src, alea in reader_teste:
 	#for Y, X, mp in reader_teste:		
 		entree = X, Y
 		Liste_entree_negatifs.append (entree)
@@ -203,7 +136,7 @@ def generation_ngram_newVersion(n, f_dataset):
 				except Exception as e:
 					#dans le cas ou il n'y a pas assez de mots pour former le ngrams: par exemple dans le cas ou le mot pivot se trouvce au debut
 					#page = open ("../corpus/listedesnomfrancais.txt","r")
-					page = open ("/home/medad/methode_par_apprentissage/corpus/listedesnomfrancais.txt","r")
+					page = open ("/corpus/listedesnomfrancais.txt","r")
 					liste_mots_francais = page.readlines()
 					mot_random = random.choice(liste_mots_francais)
 					mot_random = mot_random.rstrip()
@@ -215,8 +148,8 @@ def generation_ngram_newVersion(n, f_dataset):
 
 
 	liste_ngrams_sanscrochet = []
-	#output =  open("mix_corpus_test_validation/NgramsCorpustestMix.txt", "w")
-	output =  open("mix_corpus_test_validation/NgramsCorpusValidationMix.txt", "w")
+	output =  open("NgramsCorpustestMix.txt", "w")
+	#output =  open("mix_corpus_test_validation/NgramsCorpusValidationMix.txt", "w")
 	for element in liste_ngrams:
 		element.remove('[')
 		element.remove(']')
@@ -243,8 +176,6 @@ def generation_ngram_newVersion(n, f_dataset):
 
 	
 
-	
-
 
 
 		
@@ -258,7 +189,7 @@ def vectorisation_new (n, fichier_dataset):
 	print("la taille du cropus est : "+str(len(corpus)))
 
  
-	page = open ("/home/medad/methode_par_apprentissage/corpus/listedesnomfrancais.txt","r")
+	page = open ("/corpus/listedesnomfrancais.txt","r")
 	liste_mots_francais = page.readlines()
 
 	mot = random.choice(liste_mots_francais)
@@ -267,7 +198,7 @@ def vectorisation_new (n, fichier_dataset):
 
 	print("chargement du modél Fastext ...")
 
-	fastText_wv = fText.load_fasttext_format("/home/medad/methode_par_apprentissage/corpus/cc.fr.300") 
+	fastText_wv = fText.load_fasttext_format("/corpus/cc.fr.300") 
 
 	#matrice = np.zeros((6,3), dtype='int32')
 
@@ -371,48 +302,28 @@ def vectorisation_new (n, fichier_dataset):
 
 
 
-def extrect_Y(dataset_Y):
-	#tokenizer = nltk.data.load('tokenizers/punkt/PY3/french.pickle')
 
-	#fichier = open("corpus/Y_negatif_duplique_general.txt", "r")
-	fichier = open(dataset_Y, "r")
-	fichierlu = fichier.read()
+def extrect_Y(dataset_X):
+	F = open(dataset_X, 'r', encoding ='utf-8')
+	reader_teste = csv.reader(F, delimiter=';', quoting=csv.QUOTE_ALL, )
+	
 	Y = np.zeros((1), dtype='int32')
 	Y = np.delete(Y, np.where(Y==0))
-	print(len(Y))
 
+	for idf, annotation, X, mp,src, alea in reader_teste:
+		if int(annotation) == 0:
+			
+			Y = np.append(Y, int(annotation))
+		if int(annotation) == 1:
+			
+			Y = np.append(Y, int(annotation))
 	
-	i = 0
-	positif = 0
-	zero = 0
-	neuf = 0
-	for element in fichierlu:
-		element = element.strip()
-		if element.isdigit():
-
-			element = int(element)
-			if element == 9:
-				element = 0
-			#print(element+element)
-			Y = np.append(Y,element)
-			if (element == 1):
-				positif = positif+1
-			if (element == 0 ):
-				zero= zero +1
-			if (element == 9):
-				neuf = neuf +1
-			i = i+1
-
-
-	
-	
-
 	return (Y)
 
 
 
 	
-def load_RF(dataset_X,dataset_Y):
+def load_RF(dataset_X):
 	
 
 	from keras.models import Sequential
@@ -446,7 +357,7 @@ def load_RF(dataset_X,dataset_Y):
 
 	print('Creat the outputs ... \n')
 
-	Y = extrect_Y(dataset_Y)
+	Y = extrect_Y(dataset_X)
 	import numpy
 	# fix random seed for reproducibility
 	seed = 1
@@ -469,7 +380,8 @@ def load_RF(dataset_X,dataset_Y):
 	
 	
 
-	X_train_for_pca = vectorisation_new(int(sys.argv[1]), "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/corpus_apprentissageEtTeste/corpus_apprentissage_fevrier_teste_acp.csv")
+	#X_train_for_pca = vectorisation_new(int(sys.argv[1]), "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/corpus/corpus_apprentissage_fevrier_teste_acp.csv")
+	X_train_for_pca = vectorisation_new(int(sys.argv[1]), "/corpus/corpus_apprentissage_fevrier_teste_acp.csv")
 	#pour 1 grams
 #	X_train_for_pca = np.reshape(X_train_for_pca, (int(len(X_train_for_pca)), taille_vecteur_phrase) )
 	
@@ -494,7 +406,7 @@ def load_RF(dataset_X,dataset_Y):
 
 	
 
-	chemin_model = '/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/MLP_PCA2/MLP_PCA/model_saved/'
+	chemin_model = '/MLP_ACP_models/'
 
 	if taille_ngrams == 1 :
 
@@ -661,27 +573,10 @@ def predire(model,X_test, Y_test, execution):
 print ("*******************Validation MLP_ACP ***************************\n")
 
 
-#validation 227
-#load_RF("/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/Corpus_validation/Selon_sebastien/Corpus_validation_finale_227.csv", "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/Corpus_validation/Selon_sebastien/Y_Corpus_validation_finale_227.txt")
-
-#validation 239
-#load_RF("/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/Corpus_validation/selon_Mauro/corpus_validation_sm_mg_shufle.csv", "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/Corpus_validation/selon_Mauro/Y_corpus_validation_sm_mg_shufle.txt")
-
 
 #Emergence 93
-load_RF("/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/copus_emergence/corpus_emergence_AM_ancien.csv", "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/copus_emergence/Y_corpus_emergence_AM_ancien.txt")
-
-#validation
-#generation_ngram_newVersion(7,"/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/Corpus_validation/selon_Mauro/corpus_validation_sm_mg_shufle.csv")
-#Test
-
-
-#generation_ngram_newVersion(7,"/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/corpus/corpus_teste_fevrier.csv")
-
-
-#corpus_test_mix
-#load_RF("/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/mix_corpus_test_validation/corpus_test_mix.csv", "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/mix_corpus_test_validation/Y_corpus_test_mix.txt")
+#load_RF("corpus/corpus_emergence_AM_ancien.csv")
 
 #corpus_Validation_mix
-#load_RF("/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/mix_corpus_test_validation/corpus_validation_mix.csv", "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/mix_corpus_test_validation/Y_corpus_validation_mix.txt")
+load_RF("/corpus/corpus_validation_mix.csv")
 
