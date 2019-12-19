@@ -371,7 +371,7 @@ def load_svm(dataset_X):
 
 
 
-	chemin_model = "/SVM_models/"
+	
 	
 
 	if taille_ngrams == 1 :
@@ -380,63 +380,44 @@ def load_svm(dataset_X):
 
 		
 		
-		# config = 'SVM_kernel:_poly_GAMA_10_Penality_1_1grams'
+		config = 'SVM_kernel:_poly_GAMA_10_Penality_1_1grams'
 				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/SVM/"
-		# clf = load(chemin_model+config+'.joblib') 		
+		chemin_model = "/SVM_models/"
+		clf = load(chemin_model+config+'.joblib') 		
 			
-		# print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
+		print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
 	
-		# acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
+		acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
 
-#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("1grams.joblib"):
-				clf = load(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
 
 	if taille_ngrams == 5 :
 
-		# print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 5 grams:  ... \n\n-----------------------------\n\n')
+		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 5 grams:  ... \n\n-----------------------------\n\n')
 		
-		# config = 'SVM_kernel:_linear_GAMA_auto_Penality_0.5_5grams'
+		config = 'SVM_kernel:_linear_GAMA_auto_Penality_0.5_5grams'
 				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/SVM/"
-		# clf = load(chemin_model+config+'.joblib') 		
+		chemin_model = "/SVM_models/"
+		clf = load(chemin_model+config+'.joblib') 		
 			
-		# print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
+		print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
 	
-		# acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
+		acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
 
 
-#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("5grams.joblib"):
-				clf = load(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
 
 	if taille_ngrams == 7 :
 
-		# print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 7 grams:  ... \n\n-----------------------------\n\n')
+		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 7 grams:  ... \n\n-----------------------------\n\n')
 		
 		
-		# config = 'SVM_kernel:_rbf_GAMA_0.1_Penality_10_7grams'
+		config = 'SVM_kernel:_rbf_GAMA_0.1_Penality_10_7grams'
 				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/SVM/"
-		# clf = load(chemin_model+config+'.joblib') 		
+		chemin_model = "/SVM_models/"
+		clf = load(chemin_model+config+'.joblib') 		
 			
-		# print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
+		print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
 	
-		# acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
-
-#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("7grams.joblib"):
-				clf = load(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
+		acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
 
 
 
@@ -491,4 +472,7 @@ def predire(model,X_test, Y_test,execution):
 
 #corpus_Validation_mix
 load_svm("/corpus/corpus_validation_mix.csv")
+
+#Emergence 93
+#load_RF("/corpus/corpus_emergence_AM_ancien.csv")
 
