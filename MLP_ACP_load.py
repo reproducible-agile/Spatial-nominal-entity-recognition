@@ -382,11 +382,14 @@ def load_RF(dataset_X):
 
 	#X_train_for_pca = vectorisation_new(int(sys.argv[1]), "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Validation_experimentation_juillet/corpus/corpus_apprentissage_fevrier_teste_acp.csv")
 	X_train_for_pca = vectorisation_new(int(sys.argv[1]), "/corpus/corpus_apprentissage_fevrier_teste_acp.csv")
+	if taille_ngrams == 1:
+		
 	#pour 1 grams
-#	X_train_for_pca = np.reshape(X_train_for_pca, (int(len(X_train_for_pca)), taille_vecteur_phrase) )
+		X_train_for_pca = np.reshape(X_train_for_pca, (int(len(X_train_for_pca)), taille_vecteur_phrase) )
 	
-	#pour 5grams
-	X_train_for_pca = np.reshape(X_train_for_pca, (568, taille_vecteur_phrase) )
+	if taille_ngrams == 5:
+		#pour 5grams
+		X_train_for_pca = np.reshape(X_train_for_pca, (568, taille_vecteur_phrase) )
 
 	#pour 1 et 5grams (pour 5 grams j'ai change la ligne juste au dessus 466)
 	#pca = PCA(0.99)
@@ -394,13 +397,14 @@ def load_RF(dataset_X):
 	#Pour 7grams
 	#pca = PCA(n_components = 368)
 	#pca.fit(X_train)
-	#X_train_PCA = pca.fit_transform(X_train_for_pca, y=None)
-
-	#print("X_train_PCA.shape : ", str(X_train_PCA.shape))
 	
-	#X_test_PCA = pca.transform(X_validation)
+	X_train_PCA = pca.fit_transform(X_train_for_pca, y=None)
 
-	#print("X_test_PCA.shape : ", str(X_test_PCA.shape))
+		
+	
+	X_test_PCA = pca.transform(X_validation)
+
+	
 
 	print('charger le modéle :  ... \n')
 
@@ -570,13 +574,14 @@ def predire(model,X_test, Y_test, execution):
 	print("le taux exactitude (nombre d'ESNN reconu sur le nombre total ESNN) : " + str(p))
 	return p
 
-print ("*******************Validation MLP_ACP ***************************\n")
 
 
 
+#print ("*******************Emergence MLP_ACP ***************************\n")
 #Emergence 93
 #load_RF("corpus/corpus_emergence_AM_ancien.csv")
 
+print ("*******************Validation MLP_ACP ***************************\n")
 #corpus_Validation_mix
 load_RF("/corpus/corpus_validation_mix.csv")
 
