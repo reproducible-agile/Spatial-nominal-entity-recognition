@@ -380,43 +380,29 @@ def load_RF(dataset_X):
 		
 #traitement_Best_selon_test
 
-		# config = 'RF_max_depth : 22_criter : entropy_n_arbre_by_forest : 5001grams'
+		config = 'RF_max_depth : 22_criter : entropy_n_arbre_by_forest : 5001grams'
 				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/RF/"
-		# clf = load(chemin_model+config+'.joblib') 		
-			
-		# print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
-	
-		# acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
-#traitement ALL
 		chemin_model = "/RF_models/"
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("1grams.joblib"):
-				clf = load(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
+		clf = load(chemin_model+config+'.joblib') 		
+			
+		print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
+	
+		acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
+
 
 	if taille_ngrams == 5 :
 
 #traitement_Best_selon_test
 		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 5 grams:  ... \n\n-----------------------------\n\n')
 		
-		# config = 'RF_max_depth : 46_criter : gini_n_arbre_by_forest : 505grams'
-				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/RF/"
-		# clf = load(chemin_model+config+'.joblib') 		
+		config = 'RF_max_depth : 46_criter : gini_n_arbre_by_forest : 505grams'
 			
-		# print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
-	
-		# acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
-
-#traitement ALL
 		chemin_model = "/RF_models/"
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("5grams.joblib"):
-				clf = load(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
+		clf = load(chemin_model+config+'.joblib') 		
+			
+		print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
+	
+		acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
 
 
 	if taille_ngrams == 7 :
@@ -424,26 +410,15 @@ def load_RF(dataset_X):
 		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 7 grams:  ... \n\n-----------------------------\n\n')
 #traitement_Best_selon_test		
 		
-		# config = 'RF_max_depth : 38_criter : entropy_n_arbre_by_forest : 507grams'
+		config = 'RF_max_depth : 38_criter : entropy_n_arbre_by_forest : 507grams'
 				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/RF/"
-		# clf = load(chemin_model+config+'.joblib') 		
-			
-		# print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
-	
-		# acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
-
-#traitement ALL
 		chemin_model = "/RF_models/"
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("7grams.joblib"):
-				clf = load(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
-
-
-
+		clf = load(chemin_model+config+'.joblib') 		
+			
+		print('\n Resultats du teste du model RF en utilisant le corpus de validation\n')			
 	
+		acc_test_corpus_test = predire(clf, X_validation, Y_validation ,config)
+
 	# print('\n Resultats du teste du model SVM en utilisant le corpus d\'apprentissage \n')			
 	
 	# acc_corpus_train = predire(clf, X_train, Y_train,config)
@@ -496,3 +471,5 @@ def predire(model,X_test, Y_test,execution):
 #corpus_Validation_mix
 load_RF("corpus_validation_mix.csv")
 
+#Emergence 93
+#load_RF("/corpus/corpus_emergence_AM_ancien.csv")
