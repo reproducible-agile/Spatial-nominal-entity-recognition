@@ -402,8 +402,8 @@ def load_RF(dataset_X):
 	# print(type(X_train), X_train.size)
 
 	# print(type(Y_train), Y_train.size)
-	chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/GRU/model_saved/"
-	
+	#chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/GRU/model_saved/"
+	chemin_model = "/GRU_models/"
 	if taille_ngrams == 1 :
 
 		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 1 grams:  ... \n\n-----------------------------\n\n')
@@ -419,12 +419,6 @@ def load_RF(dataset_X):
 	
 		acc_Validation = predire(clf, X_validation, Y_validation,config)
 
-#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("1grams.h5"):
-				clf = load_model(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
 
 	if taille_ngrams == 5 :
 
@@ -441,12 +435,6 @@ def load_RF(dataset_X):
 		# print('\n Resultats du teste du model GRU en utilisant le corpus de Validation\n')			
 		acc_Validation = predire(clf, X_validation, Y_validation,config)
 
-#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("5grams.h5"):
-				clf = load_model(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
 
 	
 	# print('\n Resultats du teste du model SVM en utilisant le corpus d\'apprentissage \n')			
@@ -458,7 +446,7 @@ def load_RF(dataset_X):
 		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 7 grams:  ... \n\n-----------------------------\n\n')
 
 		# config = 'MODELGRU_5_grufuntion: tanh_gru_recurect_funtion: tanh_dropoutgru : 0.5_dropout_recurent : 0.9_dense_activationsigmoid_optimizeradam_dropout:0.97grams'
-		chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/GRU/model_saved/"
+		chemin_model = "/GRU_models/"
 		
 
 		config = 'MODELGRU_5_grufuntion: tanh_gru_recurect_funtion: tanh_dropoutgru : 0.9_dropout_recurent : 0.0_dense_activationsigmoid_optimizeradam_dropout:0.87grams.h5'
@@ -474,12 +462,7 @@ def load_RF(dataset_X):
 		# print('\n Resultats du teste du model GRU en utilisant le corpus de Validation\n')			
 		
 		acc_Validation = predire(clf, X_validation, Y_validation,config)
-#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("7grams.h5"):
-				clf = load_model(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
+
 
 
 
@@ -535,6 +518,9 @@ def predire(model,X_test, Y_test,execution):
 
 
 #corpus_Validation_mix
-load_RF("corpus_validation_mix.csv")
+load_RF("/corpus/corpus_validation_mix.csv")
 
+
+#Emergence 93
+#load_RF("/corpus/corpus_emergence_AM_ancien.csv")
 
