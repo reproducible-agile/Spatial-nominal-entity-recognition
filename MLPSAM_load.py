@@ -369,61 +369,49 @@ def load_RF(dataset_X):
 	Y_validation = Y
 
 
-	chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/MLPSAM2/"
+	chemin_model = "/MLP_AE/"
 
 	if taille_ngrams == 1 :
 
-		# print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 1 grams:  ... \n\n-----------------------------\n\n')
+		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 1 grams:  ... \n\n-----------------------------\n\n')
 
 		
 		
-		# config = 'MLPSAM_relu_relu_sigmoid_500_100_adam_dynamique_0.9_2000_1grams'
+		config = 'MLPSAM_relu_relu_sigmoid_500_100_adam_dynamique_0.9_2000_1grams'
 				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/MLPSAM2/"
+		
 
-		# print('charger le modéle :  ... \n')
+		print('charger le modéle :  ... \n')
 
 		
 
-		# from keras.models import load_model
-		# m = load_model(chemin_model+config+'.h5')
-		# print('\n Resultats du teste du model SVM en utilisant le corpus de teste\n')			
+		from keras.models import load_model
+		m = load_model(chemin_model+config+'.h5')
+		print('\n Resultats du teste du model SVM en utilisant le corpus de teste\n')			
 	
-		# acc_test_corpus_Validation = predire(m, X_validation, Y_validation,config)
+		acc_test_corpus_Validation = predire(m, X_validation, Y_validation,config)
 
 
-		#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("1grams.h5"):
-				clf = load_model(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
 
 
 	if taille_ngrams == 5 :
 
-		# print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 5 grams:  ... \n\n-----------------------------\n\n')
+		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 5 grams:  ... \n\n-----------------------------\n\n')
 		
-		# config = 'MLPSAM_elu_softplus_sigmoid_500_100_adam_dynamique_0.5_2000_5grams'
-				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/MLPSAM2/"
-
-		# print('charger le modéle :  ... \n')
-
+		config = 'MLPSAM_elu_softplus_sigmoid_500_100_adam_dynamique_0.5_2000_5grams'
+			
 		
 
-		# from keras.models import load_model
-		# m = load_model(chemin_model+config+'.h5')
-		# print('\n Resultats du teste du model SVM en utilisant le corpus de teste\n')			
+		print('charger le modéle :  ... \n')
+
+		
+
+		from keras.models import load_model
+		m = load_model(chemin_model+config+'.h5')
+		print('\n Resultats du teste du model SVM en utilisant le corpus de teste\n')			
 	
-		# acc_test_corpus_Validation = predire(m, X_validation, Y_validation,config)
+		acc_test_corpus_Validation = predire(m, X_validation, Y_validation,config)
 
-		#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("5grams.h5"):
-				clf = load_model(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
 
 
 	if taille_ngrams == 7 :
@@ -431,26 +419,21 @@ def load_RF(dataset_X):
 		print('---------------------------------------\n----------------------------------------\n\ncharger le modéle 7 grams:  ... \n\n-----------------------------\n\n')
 		
 		
-		# config = 'MLPSAM_relu_elu_sigmoid_166_33_adam_dynamique_0.5_2000_7grams'
+		config = 'MLPSAM_relu_elu_sigmoid_166_33_adam_dynamique_0.5_2000_7grams'
 				
-		# chemin_model = "/home/medad/methode_par_apprentissage/resultats_apprentissage_ models Fevrier/Cluster/fevrier/MLPSAM2/"
+		
 
-		# print('charger le modéle :  ... \n')
+		print('charger le modéle :  ... \n')
 
 		
 
-		# from keras.models import load_model
-		# m = load_model(chemin_model+config+'.h5')
-		# print('\n Resultats du teste du model SVM en utilisant le corpus de teste\n')			
+		from keras.models import load_model
+		m = load_model(chemin_model+config+'.h5')
+		print('\n Resultats du teste du model SVM en utilisant le corpus de teste\n')			
 	
-		# acc_test_corpus_Validation = predire(m, X_validation, Y_validation,config)
+		acc_test_corpus_Validation = predire(m, X_validation, Y_validation,config)
 
-		#traitement ALL
-		import os
-		for file in os.listdir(chemin_model):
-			if file.endswith("7grams.h5"):
-				clf = load_model(chemin_model+file)
-				acc_Validation = predire(clf, X_validation, Y_validation,file)
+
 
 				
 				
@@ -509,5 +492,5 @@ def predire(model,X_test, Y_test,execution):
 load_RF("corpus_validation_mix.csv")
 
 
-
-
+#Emergence 93
+#load_RF("/corpus/corpus_emergence_AM_ancien.csv")
