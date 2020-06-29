@@ -11,6 +11,10 @@ This repository contains the source code for evaluating ML models trained for Sp
 Datasets are given in the `corpus` directory and models in the `models` directory. 
 You need first to download the binary file of the pretrained French [FastText model](https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.fr.300.bin.gz) and add it to the model directory.
 
+## Installation
+
+	pip3 install -r requirements.txt
+
 ## Usage
 
 	python3 evaluate_model_snoer.py -i <input_dataset> -n <ngram_size> -alg <algorithm_name> -m <model_filepath> -ft <fasttext_model> -fr_nouns <french_nouns_filepath> -s <we_size_vec> -ti <train_dataset>
