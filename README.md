@@ -13,9 +13,10 @@ You need first to download the binary file of the pretrained French [FastText mo
 
 ## Run the code
 
-	python3 evaluate_model_snoer.py -i <input_dataset> -ft <fasttext_model> -fr_nouns <french_nouns_filepath> -alg <algorithm_name> -m <model_filepath> -n <ngram_size> -s <we_size_vec>
+	python3 evaluate_model_snoer.py -i <input_dataset> -n <ngram_size> -alg <algorithm_name> -m <model_filepath> -ft <fasttext_model> -fr_nouns <french_nouns_filepath> -s <we_size_vec> -ti <train_dataset>
 
  * `<input_dataset>`: filepath to the csv input data
+ * `<train_dataset>`: filepath to the csv training data (use for PCA fitting for the model MLP+PCA only)
  * `<fasttext_model>`: filepath of the pretrained FastText binary model
  * `<french_nouns_filepath>`: filepath of the file containing French nouns (use for padding ngrams)
  * `<algorithm_name>`: name of the architecture used for training (GRU, MLP+AE, MLP+PCA, SVM, RF)
@@ -29,7 +30,7 @@ You need first to download the binary file of the pretrained French [FastText mo
 
 Run the following command to evaluate the GRU model trained with 5 grams :
 
-    python3 evaluate_model_snoer.py -i "./data/corpus_validation.csv" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/.txt" -alg "GRU" -m "./models/GRU_5grams.h5" -n 5
+    python3 evaluate_model_snoer.py -i "./data/corpus_validation.csv" -n 5 -alg "GRU" -m "./models/GRU_5grams.h5" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/French_nouns.txt" -ti "./data/corpus_train.csv" 
     
 
 ## Acknowledgement
