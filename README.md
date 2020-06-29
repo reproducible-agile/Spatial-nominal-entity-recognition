@@ -35,16 +35,16 @@ Run the following command to evaluate the GRU model trained with 5 grams :
 
 ## Results
 
-|    Model   |           GRU          |            RF           |         SVM        |
-|:----------:|:----:|:--------:|:----:|:----:|:---------:|:----:|:----:|:----:|------|
-| ngram_size |  1 g |    5 g   |  7 g |  1 g |    5 g    |  7 g |  1 g |  5 g |  7 g |
-|  Accuracy  | 0.67 |   0.76   | 0.79 | 0.76 |    0.73   | 0.74 | 0.69 | 0.75 | 0.72 |
+| Model 	|  	| GRU 	|  	|  	| RF 	|  	|  	|  SVM 	|  	|
+|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|-	|
+| ngram_size 	| 1 g 	| 5 g 	| 7 g 	| 1 g 	| 5 g 	| 7 g 	| 1 g 	| 5 g 	| 7 g 	|
+| Accuracy 	| 0.67 	| 0.76 	| 0.79 	| 0.76 	| 0.73 	| 0.74 	| 0.69 	| 0.75 	| 0.72 	|
 
+| Model 	|  	| MLP + AE 	|  	|  	| MLP + PCA 	|  	|
+|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|
+| ngram_size 	| 1 g 	| 5 g 	| 7 g 	| 1 g 	| 5 g 	| 7 g 	|
+| Accuracy 	| 0.68 	| 0.75 	| 0.78 	| 0.49 	| 0.64 	| 0.60 	|
 
-|    Model   |           MLP + AE          |            MLP + PCA           | 
-|:----------:|:----:|:-------------:|:----:|:----:|:----------------:|:----:|
-| ngram_size |  1 g |       5 g     |  7 g | 1 g  |        5 g       | 7 g  |
-| Accuracy   | 0.68 |     0.75      | 0.78 | 0.49 |        0.64      | 0.60 |
 
 
 ## Acknowledgement
