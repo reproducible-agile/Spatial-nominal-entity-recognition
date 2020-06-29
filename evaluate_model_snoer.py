@@ -1,6 +1,5 @@
 import argparse
 import random
-import csv
 import pandas as pd
 import numpy as np
 import treetaggerwrapper
@@ -139,15 +138,16 @@ if __name__ == "__main__":
 	if args.algorithm == 'MLP_PCA':
 		df_train = pd.read_csv(args.train_corpus_filepath, delimiter=';', names=['idf', 'labels', 'sentences', 'pivot_words', 'alea'])
 
-		x_train = preprocess_input(df_train['sentences'], args.ngram_size, args.fr_nouns_file, args.fasttext_model, args.we_vector_size)
+		ngrams_list_train = sentences_to_ngrams(df_train['sentences'], args.ngram_size, args.fr_nouns_file)
+		x_train = vectorization(args.ngram_size, ngrams_list_train, args.we_vector_size, fasttext_model)
 		x_train = np.reshape(x_train, (len(x_train), args.ngram_size * args.we_vector_size))
 
 		# pca = PCA(0.99)
-		if ngram_size == 1:
+		if args.ngram_size == 1:
 			pca = PCA(n_components=87, random_state=1)
-		if ngram_size == 5:
+		if args.ngram_size == 5:
 			pca = PCA(n_components=295, random_state=1)
-		if ngram_size == 7:
+		if args.ngram_size == 7:
 			pca = PCA(n_components=369, random_state=1)
 
 		pca.fit(x_train)
