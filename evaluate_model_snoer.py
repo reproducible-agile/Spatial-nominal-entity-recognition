@@ -85,16 +85,18 @@ def vectorization(ngram_size, input_data, we_vector_size, fasttext_wv):
 
 if __name__ == "__main__":
 
-	# python3 ./evaluate_model_snoer.py -i "./corpus/corpus_validation_mix.csv" -ft "./corpus/cc.fr.300.bin" -fr_nouns "./corpus/listedesnomfrancais.txt" -alg "GRU" -m "./models/GRU_5grams.h5" -n 5
-	# python3 ./evaluate_model_snoer.py -i "./corpus/corpus_validation_mix.csv" -ft "./corpus/cc.fr.300.bin" -fr_nouns "./corpus/listedesnomfrancais.txt" -alg "MLP_PCA" -m "./models/MLP_PCA_5grams.h5" -n 5
-	# python3 ./evaluate_model_snoer.py -i "./corpus/corpus_validation_mix.csv" -ft "./corpus/cc.fr.300.bin" -fr_nouns "./corpus/listedesnomfrancais.txt" -alg "MLP_AE" -m "./models/MLP_AE_5grams.h5" -n 5
-	# python3 ./evaluate_model_snoer.py -i "./corpus/corpus_validation_mix.csv" -ft "./corpus/cc.fr.300.bin" -fr_nouns "./corpus/listedesnomfrancais.txt" -alg "RF" -m "./models/RF_5grams.joblib" -n 5
+	# python3 ./evaluate_model_snoer.py -i "./data/corpus_validation.csv" -ti "./data/corpus_train.csv" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/French_nouns.txt" -alg "GRU" -m "./models/GRU_5grams.h5" -n 5
+	# python3 ./evaluate_model_snoer.py -i "./data/corpus_validation.csv" -ti "./data/corpus_train.csv" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/French_nouns.txt" -alg "MLP_PCA" -m "./models/MLP_PCA_5grams.h5" -n 5
+	# python3 ./evaluate_model_snoer.py -i "./data/corpus_validation.csv" -ti "./data/corpus_train.csv" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/French_nouns.txt" -alg "MLP_AE" -m "./models/MLP_AE_5grams.h5" -n 5
+	# python3 ./evaluate_model_snoer.py -i "./data/corpus_validation.csv" -ti "./data/corpus_train.csv" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/French_nouns.txt" -alg "RF" -m "./models/RF_5grams.joblib" -n 5
+	# python3 ./evaluate_model_snoer.py -i "./data/corpus_validation.csv" -ti "./data/corpus_train.csv" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/French_nouns.txt" -alg "SVM" -m "./models/SVM_5grams.joblib" -n 5
 
 	parser = argparse.ArgumentParser(description='Load ML model for spatial nominal entity recognition')
 	parser.add_argument('-i', dest='input_data', required=True, help='input data')
 	parser.add_argument('-n', dest='ngram_size', type=int, default=5, help='ngram size')
 	parser.add_argument('-s', dest='we_vector_size', type=int, default=300, help='WE vector size')
 	parser.add_argument('-m', '--model', dest='model_path', required=True, help='model filepath')
+	parser.add_argument('-ti', '--train_input', dest='train_corpus_filepath', required=True, help='train input filepath')
 	parser.add_argument('-ft', '--fasttext', dest='model_fasttext', required=True, help='fasttext model path')
 	parser.add_argument('-fr_nouns', dest='fr_nouns_file', required=True, help='french nouns list filepath')
 	parser.add_argument('-alg', dest='algorithm', required=True, help='name of the architecture: GRU, SVM, MLP_PCA, RF, MLP_AE')
@@ -131,14 +133,34 @@ if __name__ == "__main__":
 
 	print('\n ** Predicting... \n')
 
-	if args.algorithm == 'RF' or args.algorithm == 'SVM' or args.algorithm == 'MLP_AE':
+	if args.algorithm == 'RF' or args.algorithm == 'SVM' or args.algorithm == 'MLP_AE' or args.algorithm == 'MLP_PCA':
 		x_test = np.reshape(x_test, (len(x_test), args.ngram_size * args.we_vector_size))
 
+	if args.algorithm == 'MLP_PCA':
+		df_train = pd.read_csv(args.train_corpus_filepath, delimiter=';', names=['idf', 'labels', 'sentences', 'pivot_words', 'alea'])
+
+		x_train = preprocess_input(df_train['sentences'], args.ngram_size, args.fr_nouns_file, args.fasttext_model, args.we_vector_size)
+		x_train = np.reshape(x_train, (len(x_train), args.ngram_size * args.we_vector_size))
+
+		# pca = PCA(0.99)
+		if ngram_size == 1:
+			pca = PCA(n_components=87, random_state=1)
+		if ngram_size == 5:
+			pca = PCA(n_components=295, random_state=1)
+		if ngram_size == 7:
+			pca = PCA(n_components=369, random_state=1)
+
+		pca.fit(x_train)
+
+		x_test = pca.transform(x_test)
+
 	if args.algorithm in keras_models:
-		score = clf.evaluate(x_test, y_test, verbose=args.verbose)
-		acc = score[1]
+		# y_pred = clf.predict_classes(x_test)
+		score = clf.evaluate(x_test, y_test)
+		accuracy = score[1]
 
 	if args.algorithm == 'RF' or args.algorithm == 'SVM':
-		acc = clf.score(x_test, y_test)
+		# y_pred = clf.predict(x_test)
+		accuracy = clf.score(x_test, y_test)
 
-	print('Test accuracy:', acc)
+	print('Test accuracy:', accuracy)
