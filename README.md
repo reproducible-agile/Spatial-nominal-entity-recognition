@@ -3,20 +3,33 @@
 
 ## Overview
 
+This repository contains the source code for evaluating ML models trained for Spatial Nominal Entity Recognition as proposed in 
+
+> Amine Medad, Mauro Gaio Ludovic Moncla, Sébastien Mustière, and Yannick Le Nir. Comparing supervised learning algorithms for Spatial Nominal Entity recognition. The 23rd AGILE International Conference on Geographic Information Science. 2020
+
+
+Datasets are given in the `corpus` directory and models in the `models` directory. 
+You need first to download the binary file of the pretrained French [FastText model](https://dl.fbaipublicfiles.com/fasttext/vectors-crawl/cc.fr.300.bin.gz) and add it to the model directory.
 
 ## Run the code
 
-	python3 evaluate_model_snoer.py -i <input_dataset> -ft <fasttext_model> -fr_nouns <french_nouns_filepath> -alg <algorithm_name> -m <model_filepath> -n <ngram_size>
+	python3 evaluate_model_snoer.py -i <input_dataset> -ft <fasttext_model> -fr_nouns <french_nouns_filepath> -alg <algorithm_name> -m <model_filepath> -n <ngram_size> -s <we_size_vec>
 
- * `<input_dataset>` : 
- * `<fasttext_model>` 
- * `<french_nouns_filepath>` 
+ * `<input_dataset>`: filepath to the csv input data
+ * `<fasttext_model>`: filepath of the pretrained FastText binary model
+ * `<french_nouns_filepath>`: filepath of the file containing French nouns (use for padding ngrams)
+ * `<algorithm_name>`: name of the architecture used for training (GRU, MLP+AE, MLP+PCA, SVM, RF)
+ * `<model_filepath>`: filepath of the model to evaluate
+ * `<ngram_size>`: size of the ngram (1, 5 or 7)
+ * `<we_size_vec>`: Word Embedding dimension (default: 300)
+
+ You can also download and execute the jupyter notebook version.
 
 ## Example
 
-Datasets are given in the `corpus` directory and models in the `models` directory. Run the following command to evaluate the GRU model trained with 5 grams :
+Run the following command to evaluate the GRU model trained with 5 grams :
 
-    python3 evaluate_model_snoer.py -i "./corpus/corpus_validation_mix.csv" -ft "./corpus/cc.fr.300.bin" -fr_nouns "./corpus/listedesnomfrancais.txt" -alg "GRU" -m "./models/GRU_5grams.h5" -n 5
+    python3 evaluate_model_snoer.py -i "./data/corpus_validation.csv" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/.txt" -alg "GRU" -m "./models/GRU_5grams.h5" -n 5
     
 
 ## Acknowledgement
