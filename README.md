@@ -33,6 +33,20 @@ Run the following command to evaluate the GRU model trained with 5 grams :
     python3 evaluate_model_snoer.py -i "./data/corpus_validation.csv" -n 5 -alg "GRU" -m "./models/GRU_5grams.h5" -ft "./data/cc.fr.300.bin" -fr_nouns "./data/French_nouns.txt" -ti "./data/corpus_train.csv" 
     
 
+## Results
+
+|    Model   |           GRU          |            RF           |         SVM        |
+|:----------:|:----:|:--------:|:----:|:----:|:---------:|:----:|:----:|:----:|------|
+| ngram_size |  1 g |    5 g   |  7 g |  1 g |    5 g    |  7 g |  1 g |  5 g |  7 g |
+|  Accuracy  | 0.67 |   0.76   | 0.79 | 0.76 |    0.73   | 0.74 | 0.69 | 0.75 | 0.72 |
+
+
+|    Model   |           MLP + AE          |            MLP + PCA           | 
+|:----------:|:----:|:-------------:|:----:|:----:|:----------------:|:----:|
+| ngram_size |  1 g |       5 g     |  7 g | 1 g  |        5 g       | 7 g  |
+| Accuracy   | 0.68 |     0.75      | 0.78 | 0.49 |        0.64      | 0.60 |
+
+
 ## Acknowledgement
 
 This work is supported and financed by French National Research Agency (ANR) under the CHOUCAS project (ANR-16-CE23-0018). 
