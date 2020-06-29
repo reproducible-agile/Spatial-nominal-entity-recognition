@@ -35,15 +35,65 @@ Run the following command to evaluate the GRU model trained with 5 grams :
 
 ## Results
 
-| Model 	<td colspan=3>GRU</td> <td colspan=3>RF</td> <td colspan=3>SVM</td>
-|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|-	|
-| ngram_size 	| 1 g 	| 5 g 	| 7 g 	| 1 g 	| 5 g 	| 7 g 	| 1 g 	| 5 g 	| 7 g 	|
-| Accuracy 	| 0.67 	| 0.76 	| 0.79 	| 0.76 	| 0.73 	| 0.74 	| 0.69 	| 0.75 	| 0.72 	|
 
-| Model 	<td colspan=3>MLP + AE</td> <td colspan=3>MLP + PCA</td> 
-|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|:-:	|
-| ngram_size 	| 1 g 	| 5 g 	| 7 g 	| 1 g 	| 5 g 	| 7 g 	|
-| Accuracy 	| 0.68 	| 0.75 	| 0.78 	| 0.49 	| 0.64 	| 0.60 	|
+<table>
+  <tr>
+    <td>Model</td>
+    <td colspan="3">GRU</td>
+    <td colspan="3">RF</td>
+    <td colspan="3">SVM</td>
+  </tr>
+  <tr>
+    <td>ngram_size</td>
+    <td>1 g</td>
+    <td>5 g</td>
+    <td>7 g</td>
+    <td>1 g</td>
+    <td>5 g</td>
+    <td>7 g</td>
+    <td>1 g</td>
+    <td>5 g</td>
+    <td>7 g</td>
+  </tr>
+  <tr>
+    <td>Accuracy</td>
+    <td>0.67</td>
+    <td>0.76</td>
+    <td>0.79</td>
+    <td>0.76</td>
+    <td>0.73</td>
+    <td>0.74</td>
+    <td>0.69</td>
+    <td>0.75</td>
+    <td>0.72</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td>Model</td>
+    <td colspan="3">MLP + AE</td>
+    <td colspan="3">MLP + PCA</td>
+  </tr>
+  <tr>
+    <td>ngram_size</td>
+    <td>1 g</td>
+    <td>5 g</td>
+    <td>7 g</td>
+    <td>1 g</td>
+    <td>5 g</td>
+    <td>7 g</td>
+  </tr>
+  <tr>
+    <td>Accuracy</td>
+    <td>0.68</td>
+    <td>0.75</td>
+    <td>0.78</td>
+    <td>0.49</td>
+    <td>0.64</td>
+    <td>0.60</td>
+  </tr>
+</table>
 
 
 
