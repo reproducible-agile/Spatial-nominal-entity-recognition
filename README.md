@@ -64,7 +64,7 @@ Run the following command to evaluate the GRU model trained with 5 grams :
     <td>0.67</td>
     <td>0.76</td>
     <td>0.79</td>
-    <td>0.76</td>
+    <td>0.71</td>
     <td>0.73</td>
     <td>0.74</td>
     <td>0.69</td>
