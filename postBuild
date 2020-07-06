@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# TreeTagger installation based on https://cis.uni-muenchen.de/~schmid/tools/TreeTagger/
+mkdir TreeTagger
+cd TreeTagger
+
+wget https://cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tree-tagger-linux-3.2.3.tar.gz
+tar -xzf tree-tagger-linux-3.2.3.tar.gz
+
+wget https://cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/tagger-scripts.tar.gz
+tar -xzf tagger-scripts.tar.gz
+
+wget https://cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/install-tagger.sh
+bash install-tagger.sh
+
+cd lib/
+wget https://cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/french.par.gz
+gunzip french.par.gz
+
+cd ..
+
+# test installation
+echo 'Bonjour monde!' | cmd/tree-tagger-french
