@@ -1,5 +1,6 @@
 # Spatial Nominal Entity Recognition
 
+[![Reproducible AGILE Badge](https://reproducible-agile.github.io/public/images/badge/AGILE-reproducible-badge.svg)](https://doi.org/10.17605/OSF.IO/SUWPJ)
 
 ## Overview
 
